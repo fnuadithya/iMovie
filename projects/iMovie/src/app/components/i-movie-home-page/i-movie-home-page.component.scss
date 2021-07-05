@@ -1,0 +1,24 @@
+
+#mainNavBar .navbar-brand {
+    color: #EA1C2C;
+    font-size: 3rem;
+}
+
+#languageSection {
+    margin-top: 15rem;
+}
+
+.languageRow {
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+.languages {
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: space-evenly;
+}
+
+button {
+    margin-bottom: 1rem;
+}

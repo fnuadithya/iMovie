@@ -2,5 +2,167 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "movie-catalog": {
+      "projectType": "library",
+      "root": "projects/movie-catalog",
+      "sourceRoot": "projects/movie-catalog/src",
+      "prefix": "i",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/movie-catalog/tsconfig.lib.json",
+            "project": "projects/movie-catalog/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/movie-catalog/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/movie-catalog/src/test.ts",
+            "tsConfig": "projects/movie-catalog/tsconfig.spec.json",
+            "karmaConfig": "projects/movie-catalog/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/movie-catalog/tsconfig.lib.json",
+              "projects/movie-catalog/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "iMovie": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/iMovie",
+      "sourceRoot": "projects/iMovie/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/iMovie",
+            "index": "projects/iMovie/src/index.html",
+            "main": "projects/iMovie/src/main.ts",
+            "polyfills": "projects/iMovie/src/polyfills.ts",
+            "tsConfig": "projects/iMovie/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/iMovie/src/favicon.ico",
+              "projects/iMovie/src/assets"
+            ],
+            "styles": [
+              "projects/iMovie/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/iMovie/src/environments/environment.ts",
+                  "with": "projects/iMovie/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "iMovie:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "iMovie:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "iMovie:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/iMovie/src/test.ts",
+            "polyfills": "projects/iMovie/src/polyfills.ts",
+            "tsConfig": "projects/iMovie/tsconfig.spec.json",
+            "karmaConfig": "projects/iMovie/karma.conf.js",
+            "assets": [
+              "projects/iMovie/src/favicon.ico",
+              "projects/iMovie/src/assets"
+            ],
+            "styles": [
+              "projects/iMovie/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/iMovie/tsconfig.app.json",
+              "projects/iMovie/tsconfig.spec.json",
+              "projects/iMovie/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/iMovie/e2e/protractor.conf.js",
+            "devServerTarget": "iMovie:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "iMovie:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "movie-catalog"
 }
