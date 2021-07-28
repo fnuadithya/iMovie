@@ -1,23 +1,29 @@
 <div class="container">
     <nav id="mainNavBar" class="navbar navbar-light">
-      <div class='container'>
+      <div class="container">
         <a class="navbar-brand" href="#">iMovie</a>
         <button type="button" class="btn btn-outline-danger btn-lg">Login</button>
       </div>
     </nav>
-  
-    <section id="languageSection" class="jumbotron text-center">
+    <div *ngIf="homePage" id="languageSection" class=" container jumbotron text-center">
       <h1 class="display-5">Select Language</h1>
       <div class="row languageRow">
         <div class="col languages">
           <button *ngFor="let language of availableMovieLanguages"
                   type="button"
                   class="btn btn-primary btn-lg"
-                  (click)="getMovieCatalog()">{{ language }}</button>
+                  (click)="getMovieCatalog(language)">{{ language }}</button>
         </div>
       </div>
-    </section>
+  </div>
+  <router-outlet></router-outlet>
 </div>
+<footer class="footer">
+</footer>
+
+
+
+
 
 
     

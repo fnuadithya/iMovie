@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MovieCatalogComponent, MovieCatalogModule } from 'movie-catalog';
 import { IMovieHomePageComponent } from './components/i-movie-home-page/i-movie-home-page.component';
+import { RoutePath } from './models/page-route-enum';
 
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: RoutePath.Imovie,
     component: IMovieHomePageComponent,
-    pathMatch: 'full'
-  },
-  {
-    path: 'hindi',
-    loadChildren: () => import ('movie-catalog').then(m => m.MovieCatalogModule),
-    pathMatch: 'full'
+    children: [
+      {
+        path: 'movies',
+        loadChildren: () => import ('movie-catalog').then(m => m.MovieCatalogModule),
+      }
+    ]
   },
   {
     path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: 'imovie',
   }
 ];
 

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { getMoviesAction } from 'movie-catalog';
 import { Languages } from '../../models/language-enums.model';
-import { Movie } from '../../models/movie.model';
-import { MovieService } from '../../services/movie.service';
-
 @Component({
   selector: 'app-i-movie-home-page',
   templateUrl: './i-movie-home-page.component.html',
@@ -16,23 +15,19 @@ export class IMovieHomePageComponent implements OnInit {
    */
    availableMovieLanguages = Languages;
 
-   /**
-    * array of objects which contain all the movies
-    */
-   movies: Movie[];
+   homePage = true;
 
    constructor(
-     private movieService: MovieService,
-     private router: Router) { }
+     private router: Router,
+     private store: Store< any>,
+     private route: ActivatedRoute) { }
 
    ngOnInit(): void {
-     this.movieService.getMovies().subscribe((movies: Movie[]) => {
-       this.movies = movies;
-       console.log(this.movies);
-     });
    }
 
-   getMovieCatalog() {
-     this.router.navigate(['/hindi']);
+   getMovieCatalog(language) {
+     this.homePage = false;
+     this.store.dispatch(getMoviesAction({ payload : language}));
+     this.router.navigate(['movies'], {relativeTo: this.route, queryParams: {lang : language}});
    }
 }

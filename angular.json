@@ -129,7 +129,7 @@
             "karmaConfig": "projects/iMovie/karma.conf.js",
             "assets": [
               "projects/iMovie/src/favicon.ico",
-              "projects/iMovie/src/assets"
+              "projects/iMovie/src/assets",
             ],
             "styles": [
               "projects/iMovie/src/styles.scss"

@@ -7,7 +7,6 @@ export const MovieCatalogRoutes: Routes = [
     {
         path: '',
         component: MovieCatalogComponent,
-        pathMatch: 'full'
     }
 ];
 
